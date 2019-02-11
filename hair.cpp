@@ -18,8 +18,8 @@ void Hair::create_hair(Object * obj)
 void Hair::draw_hair(Object * obj, int facing, int djump)
 {
   int color = djump == 1 ? 8 : (djump == 2 ? 7 + floor(frames / 3 % 2) * 4 : 12);
-  int hx = obj->x + 4 - (facing * 2);
-  int hy = obj->y + (btn(k_down) ? 4 : 3);
+  float hx = obj->x + 4 - (facing * 2);
+  float hy = obj->y + (btn(k_down) ? 4 : 3);
 
   for (int i = 0; i < 5; i++)
   {

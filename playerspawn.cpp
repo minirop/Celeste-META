@@ -12,6 +12,7 @@ void PlayerSpawn::init()
   y = 128;
   spd.y = -4;
   state = 0;
+  delay = 0;
   solids = false;
 
   hair.create_hair(this);

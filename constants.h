@@ -27,10 +27,6 @@ typedef uint8_t u8;
 #define MAP_SIZE MAP_SIDE*MAP_SIDE
 #define MAX_OBJECTS 300
 
-#define BACKGROUND 4
-#define TERRAIN    2
-#define FOREGROUND 8
-
 template <typename T>
 struct Vec2
 {

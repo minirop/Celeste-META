@@ -285,7 +285,7 @@ void Player::draw()
     spd.x = 0;
   }
 
-  hair.draw_hair(this, 1, max_djump);
+  hair.draw_hair(this, flip.x ? -1 : 1, max_djump);
   drawSprite(spr, x, y, flip.x, flip.y);
 }
 

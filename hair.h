@@ -12,8 +12,8 @@ public:
 
 private:
   struct Node {
-    int x;
-    int y;
+    float x;
+    float y;
     int size;
   };
   Node hair[5];
