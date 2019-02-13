@@ -21,6 +21,6 @@ void loop()
 
   gb.display.setCursor(0, 0);
   gb.display.setColor(7);
-  gb.display.printf("dev in progress: %d", gb.getCpuLoad());
+  gb.display.printf("dev in progress: %d\nRAM: %d", gb.getCpuLoad(), gb.getFreeRam());
 }
 

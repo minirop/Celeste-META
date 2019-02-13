@@ -18,7 +18,8 @@ enum Type
   player_spawn,
   fall_floor,
   player,
-  room_title
+  room_title,
+  balloon
 };
 
 typedef uint8_t u8;
@@ -67,6 +68,7 @@ bool fget(int tile_id, u8 flag);
 int level_index();
 bool is_title();
 void next_room();
+float rnd(int x);
 
 const Button k_left = BUTTON_LEFT;
 const Button k_right = BUTTON_RIGHT;
@@ -84,6 +86,9 @@ extern int frames;
 
 class Object;
 class Player;
+class FallFloor;
+class Spring;
+
 extern Object * objects[];
 extern int objects_count;
 void add_object(Object * obj);

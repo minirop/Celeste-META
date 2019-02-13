@@ -11,6 +11,10 @@ Object::Object(Type type)
   flip.y = false;
 }
 
+Object::~Object()
+{
+}
+
 void Object::setPosition(int new_x, int new_y)
 {
   x = new_x;
@@ -19,7 +23,6 @@ void Object::setPosition(int new_x, int new_y)
 
 void Object::init()
 {
-  
 }
 void Object::update()
 {

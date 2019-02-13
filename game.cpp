@@ -3,6 +3,10 @@
 #include "playerspawn.h"
 #include "player.h"
 #include "roomtitle.h"
+#include "fallfloor.h"
+#include "balloon.h"
+#include "platform.h"
+#include "spring.h"
 
 // STATIC //
 
@@ -20,6 +24,7 @@ int objects_count = 0;
 
 Object * deleted_objects[MAX_OBJECTS];
 int deleted_objects_count = 0;
+void deleteDeadObjects();
 
 Image tileset(tilesetData);
 int max_djump;
@@ -46,8 +51,8 @@ void Game::update()
 {
   if (gb.buttons.pressed(BUTTON_MENU))
   {
-    load_room(31);
-    state = State::MAINMENU;
+    load_room(room);
+    //state = State::MAINMENU;
   }
   
   if (state == State::PLAYING)
@@ -89,7 +94,7 @@ void Game::update()
   }
   else if (state == State::MAINMENU)
   {
-    if (gb.buttons.pressed(BUTTON_A))
+    if (gb.buttons.pressed(BUTTON_A) || gb.buttons.pressed(BUTTON_B))
     {
       state = State::FADEOUT;
     }
@@ -105,7 +110,7 @@ void Game::update()
 
 void Game::draw()
 {
-  gb.display.drawImage(0, 0, background);
+  gb.display.drawImage(16, 0, background);
 
   for (int i = 0; i < objects_count; i++)
   {
@@ -118,6 +123,17 @@ void Game::draw()
     print("matt thorson", 42, 96, 5);
     print("noel berry", 46, 102, 5);
   }
+
+  deleteDeadObjects();
+}
+
+void deleteDeadObjects()
+{
+  for (int i = 0; i < deleted_objects_count; i++)
+  {
+    delete deleted_objects[i];
+  }
+  deleted_objects_count = 0;
 }
 
 void Game::load_room(int index)
@@ -131,11 +147,8 @@ void Game::load_room(int index)
     delete objects[i];
   }
   objects_count = 0;
-  for (int i = 0; i < deleted_objects_count; i++)
-  {
-    delete deleted_objects[i];
-  }
-  deleted_objects_count = 0;
+
+  deleteDeadObjects();
 
   for (int y = 0; y < 16; y++)
   {
@@ -147,7 +160,12 @@ void Game::load_room(int index)
       
       switch (tile)
       {
-        case 1: new_object = new PlayerSpawn; break;
+        case  1: new_object = new PlayerSpawn; break;
+        case 11: new_object = new Platform(-1); break;
+        case 12: new_object = new Platform(1); break;
+        case 18: new_object = new Spring; break;
+        case 22: new_object = new Balloon; break;
+        case 23: new_object = new FallFloor; break;
         case 64: new_object = new FakeWall; break;
       }
       if (new_object)
@@ -176,7 +194,7 @@ void drawSprite(int spr, int x, int y, bool flip_x, bool flip_y)
   if (spr < 0) return;
 
   tileset.setFrame(spr);
-  gb.display.drawImage(x, y, tileset, flip_x ? -8 : 8, flip_y ? -8 : 8);
+  gb.display.drawImage(x + 16, y, tileset, flip_x ? -8 : 8, flip_y ? -8 : 8);
 }
 
 int clamp(int val, int a, int b)
@@ -271,25 +289,25 @@ void draw_time(int x, int y)
   int h = minutes / 60;
 
   rectfill(x, y, x + 32, y + 6, 0);
-  print("00:00:00", x + 1, y + 1, 7);
+  print("00:00:00", x + 1 + 16, y + 1, 7);
 }
 
 void rectfill(int x1, int y1, int x2, int y2, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.fillRect(x1, y1, x2 - x1, y2 - y1);
+  gb.display.fillRect(x1 + 16, y1, x2 - x1, y2 - y1);
 }
 
 void circfill(int x, int y, int r, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.fillCircle(x, y, r);
+  gb.display.fillCircle(x + 16, y, r);
 }
 
 void print(const char* txt, int x, int y, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.setCursor(x, y);
+  gb.display.setCursor(x + 16, y);
   gb.display.println(txt);
 }
 
@@ -354,6 +372,11 @@ void init_object(Object * object, int x, int y)
   object->setPosition(x, y);
   object->init();
   add_object(object);
+}
+
+float rnd(int x)
+{
+  return random(x * 100 + 1) / 100.f;
 }
 
 /////////////
@@ -637,7 +660,7 @@ const u8 mapData[] = {
 0x25, 0x25, 0x23, 0x20, 0x10, 0x28, 0x38, 0x00, 0x00, 0x00, 0x2a, 0x00, 0x00, 0x00, 0x3d, 0x24, 
 0x32, 0x32, 0x33, 0x28, 0x28, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x20, 0x24, 
 0x23, 0x40, 0x28, 0x38, 0x28, 0x29, 0x3a, 0x28, 0x39, 0x00, 0x00, 0x00, 0x34, 0x35, 0x22, 0x25, 
-0x26, 0x3a, 0x28, 0x28, 0x28, 0x10, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x31, 0x25, 
+0x26, 0x3a, 0x28, 0x28, 0x28, 0x10, 0x28, 0x29, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x31, 0x25, 
 0x25, 0x22, 0x35, 0x35, 0x36, 0x28, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x28, 0x24, 
 0x25, 0x33, 0x38, 0x28, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x38, 0x24, 
 0x26, 0x00, 0x00, 0x2a, 0x28, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x28, 0x3a, 0x28, 0x28, 0x28, 0x24, 

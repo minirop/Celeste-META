@@ -21,7 +21,7 @@ void RoomTitle::draw()
   else if (delay < 0)
   {
     rectfill(24, 58, 104, 70, 0);
-    if (level_index() == 14)
+    if (level_index() == 11)
     {
       print("old site", 48, 62, 7);
     }

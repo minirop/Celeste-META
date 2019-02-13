@@ -6,7 +6,7 @@
 class Object
 {
 public:
-  virtual ~Object() {}
+  virtual ~Object();
 
   virtual void init();
   virtual void update();
