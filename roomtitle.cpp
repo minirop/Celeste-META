@@ -31,7 +31,7 @@ void RoomTitle::draw()
     }
     else
     {
-      int level = (1 + level_index()) * 1000;
+      int level = (1 + level_index()) * 100;
       char message[8] = {0};
       sprintf(message, "%d m", level);
       print(message, 52 + (level < 1000 ? 2 : 0), 62, 7);

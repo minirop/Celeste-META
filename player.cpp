@@ -32,6 +32,8 @@ void Player::init()
 
 void Player::update()
 {
+  if (pause_player) return;
+  
   Object::update();
   
   int input = (btn(k_right) ? 1 : (btn(k_left) ? -1 : 0));
@@ -285,7 +287,7 @@ void Player::draw()
     spd.x = 0;
   }
 
-  hair.draw_hair(this, flip.x ? -1 : 1, max_djump);
+  hair.draw_hair(this, flip.x ? -1 : 1, djump);
   drawSprite(spr, x, y, flip.x, flip.y);
 }
 

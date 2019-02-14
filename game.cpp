@@ -7,6 +7,7 @@
 #include "balloon.h"
 #include "platform.h"
 #include "spring.h"
+#include "bigchest.h"
 
 // STATIC //
 
@@ -29,12 +30,14 @@ void deleteDeadObjects();
 Image tileset(tilesetData);
 int max_djump;
 int room = 0;
+int goto_room = -1;
 bool will_restart = false;
 int delay_restart = 0;
 bool has_dashed = false;
 int freeze = 0;
 int shake = 0;
 int frames = 0;
+bool pause_player = false;
 
 Game * game_instance = nullptr;
 
@@ -49,10 +52,15 @@ Game::Game()
 
 void Game::update()
 {
+  if (goto_room != -1)
+  {
+    load_room(goto_room);
+    goto_room = -1;
+  }
+  
   if (gb.buttons.pressed(BUTTON_MENU))
   {
     load_room(room);
-    //state = State::MAINMENU;
   }
   
   if (state == State::PLAYING)
@@ -70,10 +78,11 @@ void Game::update()
     if (freeze > 0)
     {
       freeze--;
+      return;
     }
 
     // screenshake
-    // TODO
+    // TODO?
 
     // restart (soon)
     if (will_restart && delay_restart > 0)
@@ -102,7 +111,7 @@ void Game::update()
   else if (state == State::FADEOUT)
   {
     frames = 0;
-    // FADE
+    // FADE?
     load_room(0);
     state = State::PLAYING;
   }
@@ -167,9 +176,15 @@ void Game::load_room(int index)
         case 22: new_object = new Balloon; break;
         case 23: new_object = new FallFloor; break;
         case 64: new_object = new FakeWall; break;
+        case 96: new_object = new BigChest; break;
+        case 97:
+        case 112:
+        case 113:
+          tile = 0;
       }
       if (new_object)
       {
+        bool b = (tile == 96);
         tile = 0;
         init_object(new_object, x * 8, y * 8);
       }
@@ -333,7 +348,7 @@ bool is_title()
 
 void next_room()
 {
-  game_instance->load_room(room + 1);
+  goto_room = room + 1;
 }
 
 void restart_room()
@@ -660,7 +675,7 @@ const u8 mapData[] = {
 0x25, 0x25, 0x23, 0x20, 0x10, 0x28, 0x38, 0x00, 0x00, 0x00, 0x2a, 0x00, 0x00, 0x00, 0x3d, 0x24, 
 0x32, 0x32, 0x33, 0x28, 0x28, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x20, 0x24, 
 0x23, 0x40, 0x28, 0x38, 0x28, 0x29, 0x3a, 0x28, 0x39, 0x00, 0x00, 0x00, 0x34, 0x35, 0x22, 0x25, 
-0x26, 0x3a, 0x28, 0x28, 0x28, 0x10, 0x28, 0x29, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x31, 0x25, 
+0x26, 0x3a, 0x28, 0x28, 0x28, 0x10, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x31, 0x25, 
 0x25, 0x22, 0x35, 0x35, 0x36, 0x28, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x28, 0x24, 
 0x25, 0x33, 0x38, 0x28, 0x28, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x38, 0x24, 
 0x26, 0x00, 0x00, 0x2a, 0x28, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x28, 0x3a, 0x28, 0x28, 0x28, 0x24, 

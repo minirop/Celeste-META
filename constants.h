@@ -19,7 +19,9 @@ enum Type
   fall_floor,
   player,
   room_title,
-  balloon
+  balloon,
+  big_chest,
+  orb
 };
 
 typedef uint8_t u8;
@@ -83,6 +85,7 @@ extern bool has_dashed;
 extern int freeze;
 extern int shake;
 extern int frames;
+extern bool pause_player;
 
 class Object;
 class Player;
