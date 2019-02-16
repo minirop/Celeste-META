@@ -318,8 +318,10 @@ void draw_time(int x, int y)
   int m = minutes % 60;
   int h = minutes / 60;
 
-  rectfill(x, y, x + 32, y + 6, 0);
-  print("00:00:00", x + 1 + 16, y + 1, 7);
+  rectfill(x, y, x + 33, y + 7, 0);
+  char message[10] = {0};
+  sprintf(message, "%02d:%02d:%02d", h, m, s);
+  print(message, x + 1, y + 1, 7);
 }
 
 void rectfill(int x1, int y1, int x2, int y2, int c)

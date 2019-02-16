@@ -36,6 +36,8 @@ void RoomTitle::draw()
       sprintf(message, "%d m", level);
       print(message, 52 + (level < 1000 ? 2 : 0), 62, 7);
     }
+
+    draw_time(4, 4);
   }
 }
 

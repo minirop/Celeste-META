@@ -98,6 +98,7 @@ void add_object(Object * obj);
 void destroy_object(Object * obj);
 void kill_player(Player * player);
 void init_object(Object * object, int x, int y);
+void draw_time(int x, int y);
 
 #endif
 
