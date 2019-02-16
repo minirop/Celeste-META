@@ -28,6 +28,8 @@ int deleted_objects_count = 0;
 void deleteDeadObjects();
 void cleanupNullObjects();
 
+bool got_fruit[32];
+
 Image tileset(tilesetData);
 int max_djump;
 int room = 0;
@@ -45,6 +47,11 @@ Game * game_instance = nullptr;
 Game::Game()
 {
   game_instance = this;
+
+  for (int i = 0; i < 32; i++)
+  {
+    got_fruit[i] = false;
+  }
   
   load_room(31);
 
@@ -400,6 +407,11 @@ void kill_player(Player * player)
 
 void init_object(Object * object, int x, int y)
 {
+  if (object->if_not_fruit && got_fruit[1 + level_index()])
+  {
+    return;
+  }
+  
   object->setPosition(x, y);
   object->init();
   add_object(object);

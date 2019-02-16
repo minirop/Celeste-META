@@ -1,11 +1,13 @@
 #include "fakewall.h"
 #include "constants.h"
 #include "player.h"
+#include "fruit.h"
 
 FakeWall::FakeWall()
   : Object(fake_wall)
 {
   spr = 64;
+  if_not_fruit = true;
 }
 
 void FakeWall::init()
@@ -30,6 +32,8 @@ void FakeWall::update()
     hit->spd.y = -1.5;
     static_cast<Player*>(hit)->dash_time = -1;
     destroy_object(this);
+    Fruit * fruit = new Fruit;
+    init_object(fruit, x+4, y+4);
   }
   
   hitbox.x = 0;

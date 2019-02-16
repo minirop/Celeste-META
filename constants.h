@@ -21,7 +21,8 @@ enum Type
   room_title,
   balloon,
   big_chest,
-  orb
+  orb,
+  fruit
 };
 
 typedef uint8_t u8;
@@ -94,6 +95,7 @@ class Spring;
 
 extern Object * objects[];
 extern int objects_count;
+extern bool got_fruit[];
 void add_object(Object * obj);
 void destroy_object(Object * obj);
 void kill_player(Player * player);

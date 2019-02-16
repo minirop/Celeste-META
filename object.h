@@ -24,6 +24,7 @@ public:
   Bools flip;
   int x = 0;
   int y = 0;
+  bool if_not_fruit = false;
   
   bool is_solid(int ox, int oy);
   bool is_ice(int ox, int oy);
