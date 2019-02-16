@@ -22,7 +22,9 @@ enum Type
   balloon,
   big_chest,
   orb,
-  fruit
+  fruit,
+  fly_fruit,
+  life_up
 };
 
 typedef uint8_t u8;
@@ -83,8 +85,8 @@ const Button k_dash = BUTTON_B;
 // extern variables
 extern int max_djump;
 extern bool has_dashed;
+extern bool has_key;
 extern int freeze;
-extern int shake;
 extern int frames;
 extern bool pause_player;
 

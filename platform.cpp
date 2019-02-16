@@ -17,7 +17,7 @@ void Platform::update()
 {
   Object::update();
   
-  spd.x = dir;
+  spd.x = dir * 0.65;
   
   if (x < -16) x = 128;
   else if (x > 128) x = -16;

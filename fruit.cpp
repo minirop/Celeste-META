@@ -1,5 +1,6 @@
 #include "fruit.h"
 #include "player.h"
+#include "lifeup.h"
 
 Fruit::Fruit()
   : Object(fruit)
@@ -22,8 +23,8 @@ void Fruit::update()
     static_cast<Player*>(hit)->djump = max_djump;
     got_fruit[1+level_index()] = true;
 
-    //LifeUp * lifeup = new LifeUp;
-    //init_object(lifeup, x, y);
+    LifeUp * lifeup = new LifeUp;
+    init_object(lifeup, x, y);
 
     destroy_object(this);
   }

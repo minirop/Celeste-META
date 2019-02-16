@@ -212,7 +212,6 @@ void Player::update()
       }
 
       freeze = 2;
-      shake = 6;
       dash_target.x = 2 * sign(spd.x);
       dash_target.y = 2 * sign(spd.y);
       dash_accel.x = 1.5;
