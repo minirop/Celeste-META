@@ -26,6 +26,7 @@ int objects_count = 0;
 Object * deleted_objects[MAX_OBJECTS];
 int deleted_objects_count = 0;
 void deleteDeadObjects();
+void cleanupNullObjects();
 
 Image tileset(tilesetData);
 int max_djump;
@@ -123,7 +124,8 @@ void Game::draw()
 
   for (int i = 0; i < objects_count; i++)
   {
-    objects[i]->draw();
+    if (objects[i])
+      objects[i]->draw();
   }
 
   if (state == State::MAINMENU)
@@ -134,6 +136,7 @@ void Game::draw()
   }
 
   deleteDeadObjects();
+  cleanupNullObjects();
 }
 
 void deleteDeadObjects()
@@ -143,6 +146,18 @@ void deleteDeadObjects()
     delete deleted_objects[i];
   }
   deleted_objects_count = 0;
+}
+
+void cleanupNullObjects()
+{
+  for (int i = 0; i < objects_count; i++)
+  {
+    if (objects[i] == NULL)
+    {
+      objects[i] = objects[objects_count - 1];
+      objects_count--;
+    }
+  }
 }
 
 void Game::load_room(int index)
@@ -369,8 +384,7 @@ void destroy_object(Object * obj)
     if (objects[i] == obj)
     {
       deleted_objects[deleted_objects_count++] = obj;
-      objects[i] = objects[objects_count - 1];
-      objects_count--;
+      objects[i] = NULL;
       break;
     }
   }
