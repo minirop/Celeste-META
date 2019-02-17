@@ -4,6 +4,7 @@ Game game;
 void setup()
 {
   gb.begin();
+  SerialUSB.begin(9600);
   gb.setFrameRate(30);
 
   game.init();

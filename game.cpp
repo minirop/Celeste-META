@@ -20,6 +20,19 @@
 int seconds = 0;
 int minutes = 0;
 
+// PARTICLES //
+
+struct DeadParticle
+{
+  int x;
+  int y;
+  Vec2d spd;
+};
+
+#define DEAD_PARTICLES_COUNT 8
+DeadParticle dead_particles[DEAD_PARTICLES_COUNT];
+int dead_particles_timer = 0;
+
 // GAME //
 
 extern const u8 tilesetData[];
@@ -140,6 +153,21 @@ void Game::draw()
   {
     if (objects[i])
       objects[i]->draw();
+  }
+
+  if (dead_particles_timer > 0)
+  {
+    dead_particles_timer--;
+
+    for (int i = 0; i < DEAD_PARTICLES_COUNT; i++)
+    {
+      DeadParticle & p = dead_particles[i];
+      p.x += p.spd.x;
+      p.y += p.spd.y;
+
+      int diff = dead_particles_timer / 5;
+      rectfill(p.x - diff, p.y - diff, p.x + diff, p.y + diff, 14 + dead_particles_timer % 2);
+    }
   }
 
   if (state == State::MAINMENU)
@@ -420,6 +448,17 @@ void kill_player(Player * player)
   deaths++;
   
   destroy_object(player);
+
+  for (int i = 0; i < DEAD_PARTICLES_COUNT; i++)
+  {
+    float angle = (i / 8.f) * 360;
+    dead_particles[i].x = player->x + 4;
+    dead_particles[i].y = player->y + 4;
+    dead_particles[i].spd.x = sin(angle) * 3;
+    dead_particles[i].spd.y = cos(angle) * 3;
+  }
+  dead_particles_timer = 10;
+  
   restart_room();
 }
 
