@@ -28,7 +28,7 @@ void Orb::draw()
   float off = frames / 30;
   for (int i = 0; i < 8; i++)
   {
-    circfill(x + 4 + cos(off + i/8.f)*8, y + 4 + sin(off + i / 8.f)*8, 1, 7);
+    circfill(x + 4 + cos((off + i/8.f) * 360) * 8, y + 4 + sin((off + i / 8.f) * 360) * 8, 1, 7);
   }
 }
 
