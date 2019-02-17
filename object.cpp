@@ -31,7 +31,7 @@ void Object::update()
 
 void Object::draw()
 {
-  drawSprite(spr, x, y);
+  drawSprite(spr, x, y, flip.x, flip.y);
 }
 
 bool Object::is_solid(int ox, int oy)

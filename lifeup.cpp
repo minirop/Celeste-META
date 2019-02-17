@@ -7,7 +7,7 @@ LifeUp::LifeUp()
 
 void LifeUp::init()
 {
-  spd.y = -1;
+  spd.y = -0.25;
   duration = 30;
   x -= 2;
   y -= 4;

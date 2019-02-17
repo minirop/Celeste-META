@@ -24,7 +24,11 @@ enum Type
   orb,
   fruit,
   fly_fruit,
-  life_up
+  life_up,
+  key,
+  chest,
+  message,
+  flag
 };
 
 typedef uint8_t u8;
@@ -89,6 +93,7 @@ extern bool has_key;
 extern int freeze;
 extern int frames;
 extern bool pause_player;
+extern int deaths;
 
 class Object;
 class Player;

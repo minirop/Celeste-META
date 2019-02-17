@@ -22,7 +22,7 @@ void Balloon::update()
 {
   if (spr == 22)
   {
-    offset += 0.01;
+    offset += 0.04;
     y = start + sin(offset) * 2;
     Object * hit = collide(player, 0, 0);
     if (hit && static_cast<Player*>(hit)->djump < max_djump)
@@ -46,7 +46,7 @@ void Balloon::draw()
 {
   if (spr == 22)
   {
-    drawSprite(13 + static_cast<int>(offset * 8) % 3, x, y + 6);
+    drawSprite(13 + static_cast<int>(offset * 2) % 3, x, y + 6);
     drawSprite(spr, x, y);
   }
 }
