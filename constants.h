@@ -1,7 +1,107 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#if 0
 #include <Gamebuino-Meta.h>
+#define META
+#else
+#include "ESPboy.h"
+#define ESPBOY
+
+int max(int a, double b);
+int min(int a, float b);
+
+typedef uint8_t Button;
+
+#define BUTTON_LEFT      0x01 // left
+#define BUTTON_UP        0x02 // up
+#define BUTTON_DOWN      0x04 // down
+#define BUTTON_RIGHT     0x08 // right
+#define BUTTON_A         0x10 // action
+#define BUTTON_B         0x20 // cancel
+#define BUTTON_MENU      0x40 // left
+//#define PAD_RGT        0x80 // right
+
+enum class ColorMode
+{
+  index
+};
+
+enum class Color : uint16_t {
+  white   = 0xFFFF,
+  gray    = 0xACD0,
+  darkgray  = 0x5268,
+  black   = 0x0000,
+  purple    = 0x9008,
+  pink    = 0xCA30,
+  red     = 0xD8E4,
+  orange    = 0xFD42,
+  brown   = 0xCC68,
+  beige   = 0xFEB2,
+  yellow    = 0xF720,
+  lightgreen  = 0x8668,
+  green   = 0x044A,
+  darkblue  = 0x0210,
+  blue    = 0x4439,
+  lightblue = 0x7DDF,
+};
+
+enum class ColorIndex : uint8_t {
+  black,
+  darkblue,
+  purple,
+  green,
+  brown,
+  darkgray,
+  gray,
+  white,
+  red,
+  orange,
+  yellow,
+  lightgreen,
+  lightblue,
+  blue,
+  pink,
+  beige,
+};
+
+struct Image
+{
+  Image(); 
+  Image(const u8[]);
+  Image(int, int, ColorMode);
+  void drawImage(int, int, Image&, int = -1, int = -1);
+  void setFrame(int);
+  void clear();
+  void setCursor(int, int);
+  void println(const char*);
+  void setColor(ColorIndex);
+  void fillRect(int, int, int, int);
+  void fillCircle(int, int, int);
+};
+
+struct GB
+{
+  Image display;
+
+  void begin();
+  void setFrameRate(int);
+  bool update();
+
+  struct Buttons
+  {
+    bool pressed(int btn);
+  };
+
+  Buttons buttons;
+
+private:
+  TFT_eSPI eSPI;
+};
+
+extern GB gb;
+
+#endif
 
 enum State {
   MAINMENU,

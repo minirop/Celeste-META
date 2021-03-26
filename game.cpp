@@ -15,6 +15,88 @@
 #include "message.h"
 #include "flag.h"
 
+#ifdef ESPBOY
+
+Adafruit_MCP23017 mcp;
+
+void GB::begin()
+{
+  
+}
+
+void GB::setFrameRate(int)
+{
+  
+}
+
+bool GB::update()
+{
+  return true;
+}
+
+bool GB::Buttons::pressed(int btn)
+{
+  return false;
+}
+
+GB gb;
+
+Image::Image()
+{
+}
+
+Image::Image(const u8[])
+{
+}
+
+Image::Image(int, int, ColorMode)
+{
+}
+
+void Image::drawImage(int, int, Image&, int, int)
+{
+}
+
+void Image::clear()
+{
+}
+
+void Image::setFrame(int)
+{
+}
+
+void Image::setCursor(int, int)
+{
+}
+
+void Image::println(const char*)
+{
+}
+
+void Image::setColor(ColorIndex)
+{
+}
+
+void Image::fillRect(int, int, int, int)
+{
+}
+
+void Image::fillCircle(int, int, int)
+{
+}
+
+int max(int a, double b)
+{
+  return a < b ? b : a;
+}
+
+int min(int a, float b)
+{
+  return a < b ? a : b;
+}
+
+#endif
+
 // STATIC //
 
 int seconds = 0;
@@ -67,6 +149,10 @@ Game * game_instance = nullptr;
 Game::Game()
 {
   game_instance = this;
+
+#ifdef ESPBOY
+  WiFi.mode(WIFI_OFF);
+#endif
 }
 
 void Game::init()
@@ -396,7 +482,12 @@ void print(const char* txt, int x, int y, int c)
 
 bool btn(Button bouton)
 {
+#ifdef META
   return gb.buttons.repeat(bouton, 0);
+#endif
+#ifdef ESPBOY
+  return ((~mcp.readGPIOAB() & 255) & bouton);
+#endif
 }
 
 bool fget(int tile_id, u8 flag)
