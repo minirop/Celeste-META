@@ -27,6 +27,8 @@ void Balloon::update()
     Object * hit = collide(player, 0, 0);
     if (hit && static_cast<Player*>(hit)->djump < max_djump)
     {
+      psfx(6);
+      // init smoke
       static_cast<Player*>(hit)->djump = max_djump;
       spr = 0;
       timer = 60;
@@ -38,6 +40,8 @@ void Balloon::update()
   }
   else
   {
+    psfx(7);
+    // init smoke
     spr = 22;
   }
 }
@@ -50,4 +54,3 @@ void Balloon::draw()
     drawSprite(spr, x, y);
   }
 }
-

@@ -15,6 +15,7 @@ void FlyFruit::init()
   fly = false;
   step = 0.5;
   solids = false;
+  sfx_delay = 8;
 }
 
 void FlyFruit::update()
@@ -24,6 +25,15 @@ void FlyFruit::update()
   // fly away
   if (fly)
   {
+    if (sfx_delay > 0)
+    {
+      sfx_delay--;
+      if (sfx_delay <= 0)
+      {
+        sfx_timer = 20;
+        sfx(14);
+      }
+    }
     spd.y = appr(spd.y, -3.5f, 0.25f);
     if (y < -16)
     {
@@ -46,6 +56,8 @@ void FlyFruit::update()
   if (hit)
   {
     static_cast<Player*>(hit)->djump = max_djump;
+    sfx_timer=20;
+    sfx(13);
     got_fruit[1 + level_index()] = true;
     
     LifeUp * lifeup = new LifeUp;
@@ -75,4 +87,3 @@ void FlyFruit::draw()
   drawSprite(spr, x, y);
   drawSprite(45 + off, x + 6, y - 2);
 }
-

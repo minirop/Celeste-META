@@ -24,6 +24,7 @@ void BigChest::draw()
     Object * hit = collide(player, 0, 8);
     if (hit && hit->is_solid(0, 1))
     {
+      sfx(37);
       pause_player = true;
       hit->spd.x = 0;
       hit->spd.y = 0;
@@ -50,4 +51,3 @@ void BigChest::draw()
   drawSprite(112, x,     y + 8);
   drawSprite(113, x + 8, y + 8);
 }
-

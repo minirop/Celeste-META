@@ -39,7 +39,8 @@ void Flag::draw()
   }
   else if (check(player, 0, 0))
   {
+    sfx(55);
+    sfx_timer = 30;
     show = true;
   }
 }
-

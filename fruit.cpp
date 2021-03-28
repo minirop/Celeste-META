@@ -21,6 +21,8 @@ void Fruit::update()
   if (hit)
   {
     static_cast<Player*>(hit)->djump = max_djump;
+    sfx_timer = 20;
+    sfx(13);
     got_fruit[1+level_index()] = true;
 
     LifeUp * lifeup = new LifeUp;
@@ -32,4 +34,3 @@ void Fruit::update()
   off += 1;
   y = start + sin(off / 20.f) * 2.5;
 }
-

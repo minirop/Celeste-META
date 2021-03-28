@@ -134,4 +134,3 @@ void Object::move_y(float amount)
     y += amount;
   }
 }
-

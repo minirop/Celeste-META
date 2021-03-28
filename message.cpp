@@ -30,6 +30,7 @@ void Message::draw()
       if (index >= last + 1)
       {
         last++;
+        sfx(35);
       }
     }
     Point off;
@@ -56,4 +57,3 @@ void Message::draw()
     last = 0;
   }
 }
-

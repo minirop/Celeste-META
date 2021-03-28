@@ -8,6 +8,7 @@ PlayerSpawn::PlayerSpawn()
 
 void PlayerSpawn::init()
 {
+  sfx(4);
   spr = 3;
   y = 128;
   spd.y = -4;
@@ -47,6 +48,8 @@ void PlayerSpawn::update()
       spd.y = 0;
       state = 2;
       delay = 5;
+      // init smoke
+      sfx(5);
     }
   }
   // landing
@@ -79,5 +82,3 @@ void PlayerSpawn::setTarget(int tx, int ty)
   x = tx;
   target = ty;
 }
-
-

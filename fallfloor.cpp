@@ -36,8 +36,10 @@ void FallFloor::update()
     delay--;
     if (delay <= 0 && !check(player, 0, 0))
     {
+      psfx(7);
       state = 0;
       collideable = true;
+      // init smoke
     }
   }
 }
@@ -58,6 +60,7 @@ void FallFloor::break_fall_floor()
 {
   if (state == 0)
   {
+    psfx(15);
     state = 1;
     delay = 15;
     Object * hit = collide(spring, 0, -1);
@@ -67,4 +70,3 @@ void FallFloor::break_fall_floor()
     }
   }
 }
-

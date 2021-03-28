@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#if 0
+#if 1
 #include <Gamebuino-Meta.h>
 #define META
 #else
@@ -178,6 +178,8 @@ int level_index();
 bool is_title();
 void next_room();
 float rnd(int x);
+void sfx(int id);
+void psfx(int id);
 
 const Button k_left = BUTTON_LEFT;
 const Button k_right = BUTTON_RIGHT;
@@ -194,6 +196,7 @@ extern int freeze;
 extern int frames;
 extern bool pause_player;
 extern int deaths;
+extern int sfx_timer;
 
 class Object;
 class Player;
@@ -210,4 +213,3 @@ void init_object(Object * object, int x, int y);
 void draw_time(int x, int y);
 
 #endif
-

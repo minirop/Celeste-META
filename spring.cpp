@@ -44,6 +44,8 @@ void Spring::update()
       {
         static_cast<FallFloor*>(below)->break_fall_floor();
       }
+
+      psfx(8);
     }
   }
   else if (delay > 0)
@@ -71,4 +73,3 @@ void Spring::break_spring()
 {
   hide_in = 15;
 }
-

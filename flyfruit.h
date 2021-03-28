@@ -16,7 +16,7 @@ private:
   int start;
   bool fly;
   float step;
+  int sfx_delay;
 };
 
 #endif
-

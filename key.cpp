@@ -20,8 +20,9 @@ void Key::update()
   }
   if (check(player, 0, 0))
   {
+    sfx(23);
+    sfx_timer = 10;
     destroy_object(this);
     has_key = true;
   }
 }
-

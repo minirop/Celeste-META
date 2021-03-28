@@ -82,6 +82,7 @@ void Player::update()
     grace = 6;
     if (djump < max_djump)
     {
+      psfx(54);
       djump = max_djump;
     }
   }
@@ -158,6 +159,7 @@ void Player::update()
       if (grace > 0)
       {
         // normal jump
+        psfx(1);
         jbuffer = 0;
         grace = 0;
         spd.y = -2;
@@ -168,6 +170,7 @@ void Player::update()
         int wall_dir = is_solid(-3, 0) ? -1 : (is_solid(3, 0) ? 1 : 0);
         if (wall_dir != 0)
         {
+          psfx(2);
           jbuffer = 0;
           spd.y = -2;
           spd.x = -wall_dir * (maxrun + 1);
@@ -211,6 +214,7 @@ void Player::update()
         spd.y = 0;
       }
 
+      psfx(3);
       freeze = 2;
       dash_target.x = 2 * sign(spd.x);
       dash_target.y = 2 * sign(spd.y);
@@ -234,6 +238,7 @@ void Player::update()
     }
     else if (dash && djump <= 0)
     {
+      psfx(9);
       // init smoke
     }
   }
@@ -289,4 +294,3 @@ void Player::draw()
   hair.draw_hair(this, flip.x ? -1 : 1, djump);
   drawSprite(spr, x, y, flip.x, flip.y);
 }
-

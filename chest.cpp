@@ -23,10 +23,11 @@ void Chest::update()
     x = start - 1 + rnd(3);
     if (timer <= 0)
     {
+      sfx_timer = 20;
+      sfx(16);
       Fruit * fruit = new Fruit;
       init_object(fruit, x, y - 4);
       destroy_object(this);
     }
   }
 }
-

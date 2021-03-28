@@ -31,6 +31,8 @@ void FakeWall::update()
     hit->spd.x = -sign(hit->spd.x) * 1.5;
     hit->spd.y = -1.5;
     static_cast<Player*>(hit)->dash_time = -1;
+    sfx_timer = 20;
+    sfx(16);
     destroy_object(this);
     Fruit * fruit = new Fruit;
     init_object(fruit, x+4, y+4);
@@ -49,4 +51,3 @@ void FakeWall::draw()
   drawSprite(80, x,     y + 8);
   drawSprite(81, x + 8, y + 8);
 }
-
