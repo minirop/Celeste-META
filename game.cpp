@@ -17,6 +17,25 @@
 
 #ifdef ESPBOY
 
+const Color defaultColorPalette[16] = {
+  Color::black,
+  Color::darkblue,
+  Color::purple,
+  Color::green,
+  Color::brown,
+  Color::darkgray,
+  Color::gray,
+  Color::white,
+  Color::red,
+  Color::orange,
+  Color::yellow,
+  Color::lightgreen,
+  Color::lightblue,
+  Color::blue,
+  Color::pink,
+  Color::beige,
+};
+
 Adafruit_MCP23017 mcp;
 
 void GB::begin()
@@ -31,6 +50,7 @@ void GB::setFrameRate(int)
 
 bool GB::update()
 {
+  delay(33); // 30 fps
   return true;
 }
 
@@ -47,18 +67,29 @@ Image::Image()
 
 Image::Image(const u8[])
 {
+  // todo
 }
 
-Image::Image(int, int, ColorMode)
+Image::Image(int width, int height, ColorMode)
 {
+  w = width;
+  h = height;
+  data = new uint16_t[w * h];
+  clear();
 }
 
-void Image::drawImage(int, int, Image&, int, int)
+Image::~Image()
+{
+  delete data;
+}
+
+void Image::drawImage(int x, int y, Image& img, int w, int h)
 {
 }
 
 void Image::clear()
 {
+  fillRect(0, 0, w, h);
 }
 
 void Image::setFrame(int)
@@ -73,12 +104,18 @@ void Image::println(const char*)
 {
 }
 
-void Image::setColor(ColorIndex)
+void Image::setColor(ColorIndex c)
 {
+  color = defaultColorPalette[static_cast<uint8_t>(c)];
 }
 
-void Image::fillRect(int, int, int, int)
+void Image::fillRect(int x, int y, int w, int h)
 {
+  uint16_t c = static_cast<uint16_t>(color);
+  for (int yy = y; yy < y + h; yy++)
+  {
+    memset(&data[yy * w + x], c, w);
+  }
 }
 
 void Image::fillCircle(int, int, int)
@@ -138,6 +175,7 @@ int goto_room = -1;
 bool will_restart = false;
 int delay_restart = 0;
 bool has_dashed = false;
+int sfx_timer = 0;
 bool has_key = false;
 int freeze = 0;
 int frames = 0;
@@ -568,6 +606,69 @@ void init_object(Object * object, int x, int y)
 float rnd(int x)
 {
   return random(x * 100 + 1) / 100.f;
+}
+
+#include "sfx.h"
+
+void sfx(int id)
+{
+#ifdef META
+  static int8_t sfxId = -1;
+
+  if (sfxId != -1)
+  {
+    if (gb.sound.isPlaying(sfxId))
+    {
+      gb.sound.stop(sfxId);
+    }
+    sfxId = -1;
+  }
+
+  const unsigned char * data = NULL;
+  unsigned int len = 0;
+
+#define CC(i) case i: data = sfx_ ## i ## _wav; len = sfx_ ## i ## _wav_len; break
+  switch (id)
+  {
+    CC(0);
+    CC(1);
+    CC(2);
+    CC(3);
+    /*CC(4);
+    CC(5);
+    CC(6);
+    CC(7);
+    CC(8);*/
+    CC(9);
+    /*CC(13);
+    CC(14);
+    CC(15);
+    CC(16);
+    CC(23);
+    CC(35);
+    CC(37);
+    CC(38);
+    CC(51);*/
+    CC(54);
+    //CC(55);*/
+    default: return;
+  }
+
+  sfxId = gb.sound.play(data, len);
+#endif
+}
+
+void psfx(int id)
+{
+  if (sfx_timer <= 0)
+  {
+    sfx(id);
+  }
+}
+
+void music(int id)
+{
+  
 }
 
 /////////////
@@ -1390,4 +1491,3 @@ const u8 mapData[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-

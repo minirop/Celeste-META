@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#if 1
+#if 0
 #include <Gamebuino-Meta.h>
 #define META
 #else
@@ -70,6 +70,7 @@ struct Image
   Image(); 
   Image(const u8[]);
   Image(int, int, ColorMode);
+  ~Image();
   void drawImage(int, int, Image&, int = -1, int = -1);
   void setFrame(int);
   void clear();
@@ -78,6 +79,12 @@ struct Image
   void setColor(ColorIndex);
   void fillRect(int, int, int, int);
   void fillCircle(int, int, int);
+
+private:
+  uint16_t * data = nullptr;
+  int w = 0;
+  int h = 0;
+  Color color = Color::black;
 };
 
 struct GB
@@ -180,6 +187,7 @@ void next_room();
 float rnd(int x);
 void sfx(int id);
 void psfx(int id);
+void music(int id);
 
 const Button k_left = BUTTON_LEFT;
 const Button k_right = BUTTON_RIGHT;

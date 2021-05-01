@@ -14,10 +14,12 @@ void loop()
 {
   while (!gb.update());
 
-#ifdef META
   gb.display.clear();
-#endif
 
   game.update();
   game.draw();
+
+#ifdef META
+  gb.display.print(gb.getFreeRam());
+#endif
 }
