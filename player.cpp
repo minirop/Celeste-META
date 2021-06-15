@@ -46,7 +46,7 @@ void Player::update()
   }
 
   // bottom death
-  if (y > 128)
+  if (y > MAP_SIZE)
   {
     kill_player(this);
     return;
@@ -289,4 +289,3 @@ void Player::draw()
   hair.draw_hair(this, flip.x ? -1 : 1, djump);
   drawSprite(spr, x, y, flip.x, flip.y);
 }
-

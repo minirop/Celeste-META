@@ -9,7 +9,7 @@ PlayerSpawn::PlayerSpawn()
 void PlayerSpawn::init()
 {
   spr = 3;
-  y = 128;
+  y = MAP_SIZE;
   spd.y = -4;
   state = 0;
   delay = 0;
@@ -79,5 +79,3 @@ void PlayerSpawn::setTarget(int tx, int ty)
   x = tx;
   target = ty;
 }
-
-

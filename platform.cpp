@@ -19,8 +19,8 @@ void Platform::update()
   
   spd.x = dir * 0.65;
   
-  if (x < -16) x = 128;
-  else if (x > 128) x = -16;
+  if (x < -SCREEN_H_OFFSET) x = MAP_SIZE;
+  else if (x > MAP_SIZE) x = -SCREEN_H_OFFSET;
 
   if (!check(player, 0, 0))
   {
@@ -39,4 +39,3 @@ void Platform::draw()
   drawSprite(11, x,     y - 1);
   drawSprite(12, x + 8, y - 1);
 }
-

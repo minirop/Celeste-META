@@ -147,7 +147,7 @@ void Game::update()
 
 void Game::draw()
 {
-  gb.display.drawImage(16, 0, background);
+  gb.display.drawImage(SCREEN_H_OFFSET, 0, background);
 
   for (int i = 0; i < objects_count; i++)
   {
@@ -275,7 +275,7 @@ void drawSprite(int spr, int x, int y, bool flip_x, bool flip_y)
   if (spr < 0) return;
 
   tileset.setFrame(spr);
-  gb.display.drawImage(x + 16, y, tileset, flip_x ? -8 : 8, flip_y ? -8 : 8);
+  gb.display.drawImage(x + SCREEN_H_OFFSET, y, tileset, flip_x ? -8 : 8, flip_y ? -8 : 8);
 }
 
 int clamp(int val, int a, int b)
@@ -378,19 +378,19 @@ void draw_time(int x, int y)
 void rectfill(int x1, int y1, int x2, int y2, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.fillRect(x1 + 16, y1, x2 - x1, y2 - y1);
+  gb.display.fillRect(x1 + SCREEN_H_OFFSET, y1, x2 - x1, y2 - y1);
 }
 
 void circfill(int x, int y, int r, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.fillCircle(x + 16, y, r);
+  gb.display.fillCircle(x + SCREEN_H_OFFSET, y, r);
 }
 
 void print(const char* txt, int x, int y, int c)
 {
   gb.display.setColor(static_cast<ColorIndex>(c));
-  gb.display.setCursor(x + 16, y);
+  gb.display.setCursor(x + SCREEN_H_OFFSET, y);
   gb.display.println(txt);
 }
 
@@ -1299,4 +1299,3 @@ const u8 mapData[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
-

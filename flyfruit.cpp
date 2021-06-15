@@ -25,7 +25,7 @@ void FlyFruit::update()
   if (fly)
   {
     spd.y = appr(spd.y, -3.5f, 0.25f);
-    if (y < -16)
+    if (y < -SCREEN_H_OFFSET)
     {
       destroy_object(this);
     }
@@ -75,4 +75,3 @@ void FlyFruit::draw()
   drawSprite(spr, x, y);
   drawSprite(45 + off, x + 6, y - 2);
 }
-

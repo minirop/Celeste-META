@@ -36,6 +36,7 @@ typedef uint8_t u8;
 #define MAP_SIDE 16
 #define MAP_SIZE MAP_SIDE*MAP_SIDE
 #define MAX_OBJECTS 300
+#define SCREEN_H_OFFSET 16
 
 template <typename T>
 struct Vec2
@@ -110,4 +111,3 @@ void init_object(Object * object, int x, int y);
 void draw_time(int x, int y);
 
 #endif
-
