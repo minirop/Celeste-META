@@ -19,4 +19,3 @@ void loop()
   game.update();
   game.draw();
 }
-

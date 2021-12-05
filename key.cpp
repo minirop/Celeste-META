@@ -24,4 +24,3 @@ void Key::update()
     has_key = true;
   }
 }
-

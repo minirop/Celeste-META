@@ -42,4 +42,3 @@ void Flag::draw()
     show = true;
   }
 }
-

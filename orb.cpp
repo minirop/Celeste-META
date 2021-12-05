@@ -31,4 +31,3 @@ void Orb::draw()
     circfill(x + 4 + cos((off + i/8.f) * 360) * 8, y + 4 + sin((off + i / 8.f) * 360) * 8, 1, 7);
   }
 }
-

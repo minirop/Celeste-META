@@ -49,4 +49,3 @@ void FakeWall::draw()
   drawSprite(80, x,     y + 8);
   drawSprite(81, x + 8, y + 8);
 }
-

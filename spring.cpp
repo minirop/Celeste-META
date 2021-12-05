@@ -71,4 +71,3 @@ void Spring::break_spring()
 {
   hide_in = 15;
 }
-

@@ -33,4 +33,3 @@ void Hair::draw_hair(Object * obj, int facing, int djump)
     hy = node.y;
   }
 }
-

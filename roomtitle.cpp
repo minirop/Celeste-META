@@ -40,4 +40,3 @@ void RoomTitle::draw()
     draw_time(4, 4);
   }
 }
-

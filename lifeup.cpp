@@ -31,4 +31,3 @@ void LifeUp::draw()
   flash++;
   print("1000", x - 2, y, 7 + (flash / 2) % 2);
 }
-

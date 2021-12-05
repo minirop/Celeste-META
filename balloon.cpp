@@ -50,4 +50,3 @@ void Balloon::draw()
     drawSprite(spr, x, y);
   }
 }
-

@@ -50,4 +50,3 @@ void BigChest::draw()
   drawSprite(112, x,     y + 8);
   drawSprite(113, x + 8, y + 8);
 }
-

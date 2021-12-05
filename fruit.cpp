@@ -32,4 +32,3 @@ void Fruit::update()
   off += 1;
   y = start + sin(off / 20.f) * 2.5;
 }
-

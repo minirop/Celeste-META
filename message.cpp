@@ -56,4 +56,3 @@ void Message::draw()
     last = 0;
   }
 }
-
