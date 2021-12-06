@@ -224,12 +224,12 @@ void Player::update()
   
       if (spd.y != 0)
       {
-        dash_accel.x *= 70710678118;
+        dash_accel.x *= 0.70710678118;
       }
   
       if (spd.x != 0)
       {
-        dash_accel.x *= 70710678118;
+        dash_accel.x *= 0.70710678118;
       }
     }
     else if (dash && djump <= 0)
