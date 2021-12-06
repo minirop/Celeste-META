@@ -34,7 +34,7 @@ enum Type
 typedef uint8_t u8;
 
 #define MAP_SIDE 16
-#define MAP_SIZE MAP_SIDE*MAP_SIDE
+#define MAP_SIZE MAP_SIDE*8
 #define MAX_OBJECTS 300
 #define SCREEN_H_OFFSET 16
 

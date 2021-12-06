@@ -17,8 +17,7 @@ public:
 
 private:
   State state = State::MAINMENU;
-  Image background = Image(MAP_SIDE * 8, MAP_SIDE * 8, ColorMode::index);
-  u8 solid[MAP_SIZE];
+  Image background = Image(MAP_SIZE, MAP_SIZE, ColorMode::index);
 };
 
 #endif
